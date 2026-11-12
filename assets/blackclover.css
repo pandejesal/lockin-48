@@ -372,6 +372,13 @@ td {
 
 tr:hover td { background: rgba(200, 16, 46, 0.055); }
 
+.schedule-table th:first-child { width: 1%; }
+.schedule-table td:first-child {
+  white-space: nowrap;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
 /* ============================= FOOTER ========================== */
 
 footer {
