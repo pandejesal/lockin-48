@@ -1,0 +1,430 @@
+/* Black Clover-inspired manga visual effects
+   Complements main theme/site CSS (e.g. assets/site.css). Uses existing CSS vars when available. */
+
+:root {
+  --manga-ink: #0b0d10;
+  --manga-paper: #f4f1ea;
+  --manga-accent: var(--accent, #7aa2f7);
+  --manga-accent-2: var(--accent2, #9ece6a);
+  --manga-warn: var(--warn, #f7768e);
+  --manga-border: var(--border, #2a2f3a);
+  --manga-surface: var(--surface, #171a21);
+  --manga-text: var(--text, #e6e6e6);
+}
+
+/* --- Screentone / halftone background utilities --- */
+.screentone {
+  position: relative;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+  background-position: 0 0;
+}
+
+.screentone-dense {
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1.1px);
+  background-size: 4px 4px;
+}
+
+.halftone {
+  position: relative;
+  background-image:
+    radial-gradient(circle, rgba(122, 162, 247, 0.18) 1.2px, transparent 1.3px),
+    radial-gradient(circle, rgba(0, 0, 0, 0.25) 1px, transparent 1.2px);
+  background-size: 10px 10px, 10px 10px;
+  background-position: 0 0, 5px 5px;
+}
+
+.halftone-warm {
+  background-image:
+    radial-gradient(circle, rgba(247, 118, 142, 0.16) 1.2px, transparent 1.3px),
+    radial-gradient(circle, rgba(158, 206, 106, 0.12) 1px, transparent 1.2px);
+  background-size: 12px 12px, 12px 12px;
+  background-position: 0 0, 6px 6px;
+}
+
+/* Optional overlay variant for images/sections without affecting content contrast */
+.screentone-overlay,
+.halftone-overlay {
+  position: relative;
+  isolation: isolate;
+}
+.screentone-overlay::after,
+.halftone-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+}
+.screentone-overlay::after {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1.2px);
+  background-size: 6px 6px;
+}
+.halftone-overlay::after {
+  background-image:
+    radial-gradient(circle, rgba(122, 162, 247, 0.22) 1.2px, transparent 1.3px),
+    radial-gradient(circle, rgba(0, 0, 0, 0.3) 1px, transparent 1.2px);
+  background-size: 10px 10px, 10px 10px;
+  background-position: 0 0, 5px 5px;
+}
+.screentone-overlay > *,
+.halftone-overlay > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Speed-line accents --- */
+.speed-lines {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.speed-lines::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      100deg,
+      transparent 0 18px,
+      rgba(255, 255, 255, 0.06) 18px 19px,
+      transparent 19px 36px
+    );
+  opacity: 0.55;
+  transform: skewX(-8deg);
+}
+.speed-lines > * {
+  position: relative;
+  z-index: 1;
+}
+
+.speed-lines-burst {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.speed-lines-burst::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-conic-gradient(
+      from -20deg at 15% 50%,
+      transparent 0deg 8deg,
+      rgba(255, 255, 255, 0.07) 8deg 9deg
+    );
+  opacity: 0.45;
+}
+.speed-lines-burst > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Manga panels & ink borders --- */
+.manga-panel {
+  background: linear-gradient(180deg, rgba(30, 34, 43, 0.98), rgba(23, 26, 33, 0.98));
+  color: var(--manga-text);
+  border: 3px solid #e8e8e8;
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  margin: 1rem 0;
+  box-shadow:
+    4px 4px 0 rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.35) inset;
+}
+
+.manga-panel-dark {
+  background:
+    radial-gradient(circle at top right, rgba(122, 162, 247, 0.12), transparent 40%),
+    linear-gradient(180deg, #10131a, #0b0d12);
+  color: #f0f3f8;
+  border: 3px solid #f2f2f2;
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  margin: 1rem 0;
+  box-shadow:
+    5px 5px 0 rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+.ink-border {
+  border: 3px solid #111;
+  border-radius: 3px;
+  box-shadow:
+    3px 3px 0 #000,
+    0 0 0 2px rgba(255, 255, 255, 0.15) inset;
+}
+
+.ink-border-light {
+  border: 3px solid #f3f3f3;
+  box-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(0, 0, 0, 0.4) inset;
+}
+
+/* --- Speech bubble --- */
+.speech {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  background: #fdfcf8;
+  color: #111318;
+  border: 3px solid #111;
+  border-radius: 18px;
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0 1.25rem;
+  line-height: 1.45;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
+}
+.speech::before,
+.speech::after {
+  content: "";
+  position: absolute;
+  left: 1.6rem;
+  bottom: -16px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.speech::before {
+  border-width: 16px 12px 0 12px;
+  border-color: #111 transparent transparent transparent;
+}
+.speech::after {
+  left: calc(1.6rem + 3px);
+  bottom: -11px;
+  border-width: 12px 9px 0 9px;
+  border-color: #fdfcf8 transparent transparent transparent;
+}
+.speech.right::before,
+.speech.right::after {
+  left: auto;
+  right: 1.6rem;
+}
+.speech.right::after {
+  right: calc(1.6rem + 3px);
+}
+
+/* --- Impact text --- */
+.impact {
+  display: inline-block;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #fff;
+  text-shadow:
+    2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    4px 4px 0 rgba(122, 162, 247, 0.35);
+  transform: skewX(-8deg) rotate(-1deg);
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.35);
+}
+.impact.accent {
+  color: #eaf2ff;
+  text-shadow:
+    2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    4px 4px 0 rgba(158, 206, 106, 0.4);
+}
+.impact.warn {
+  color: #ffeef1;
+  text-shadow:
+    2px 2px 0 #000,
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    4px 4px 0 rgba(247, 118, 142, 0.45);
+}
+
+/* --- Chapter / section title styling --- */
+.chapter-title {
+  position: relative;
+  display: inline-block;
+  padding: 0.2rem 0.6rem 0.25rem 0.1rem;
+  margin: 0.25rem 0 0.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #f7f9ff;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+}
+.chapter-title::before {
+  content: "";
+  position: absolute;
+  left: -0.35rem;
+  top: 0.1em;
+  bottom: 0.1em;
+  width: 0.28rem;
+  background: linear-gradient(180deg, var(--manga-accent), var(--manga-accent-2));
+  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.5);
+  transform: skewY(-8deg);
+}
+.chapter-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: -0.4rem;
+  bottom: -0.15rem;
+  height: 3px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f3f3f3 0 10px,
+    transparent 10px 14px
+  );
+  opacity: 0.8;
+}
+
+/* Apply chapter styling to main section headings when this stylesheet is loaded */
+main h2.chapter-title-auto,
+.chapter-scope h2 {
+  position: relative;
+  padding-left: 0.7rem;
+}
+main h2.chapter-title-auto::before,
+.chapter-scope h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  bottom: 0.25em;
+  width: 0.28rem;
+  background: linear-gradient(180deg, var(--manga-accent), var(--manga-warn));
+  box-shadow: 2px 0 0 rgba(0, 0, 0, 0.45);
+}
+
+/* --- Hover effects for links/cards (complementary) --- */
+a {
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
+  transition: color 0.18s ease, text-shadow 0.18s ease, background-color 0.18s ease;
+}
+a:hover,
+a:focus-visible {
+  text-shadow: 0 0 0.5px currentColor;
+}
+
+.card,
+.manga-panel,
+.manga-panel-dark {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.card:hover,
+.manga-panel:hover,
+.manga-panel-dark:hover {
+  transform: translateY(-2px);
+}
+.card:hover {
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(122, 162, 247, 0.18);
+  border-color: rgba(122, 162, 247, 0.45);
+}
+.manga-panel:hover,
+.manga-panel-dark:hover {
+  border-color: #ffffff;
+  box-shadow:
+    6px 6px 0 rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(122, 162, 247, 0.2) inset;
+}
+
+/* Focus visibility for keyboard users */
+a:focus-visible,
+.card:focus-within,
+.manga-panel:focus-within,
+.manga-panel-dark:focus-within,
+.speech:focus-within {
+  outline: 2px solid var(--manga-accent);
+  outline-offset: 3px;
+}
+
+/* --- Subtle animations --- */
+@keyframes manga-pop {
+  0% { transform: translateY(0) skewX(-8deg) rotate(-1deg); }
+  50% { transform: translateY(-1px) skewX(-8deg) rotate(-1deg) scale(1.02); }
+  100% { transform: translateY(0) skewX(-8deg) rotate(-1deg); }
+}
+@keyframes ink-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 12px 6px; }
+}
+@keyframes panel-glint {
+  0%, 100% { border-color: #f2f2f2; }
+  50% { border-color: #ffffff; }
+}
+
+.impact.animate-pop:hover,
+.impact.animate-pop:focus-visible {
+  animation: manga-pop 0.5s ease-in-out 1;
+}
+.screentone.animate-drift {
+  animation: ink-drift 12s linear infinite;
+}
+.manga-panel-dark.animate-glint {
+  animation: panel-glint 4s ease-in-out infinite;
+}
+
+/* --- Mobile friendliness & contrast adjustments --- */
+@media (max-width: 700px) {
+  .manga-panel,
+  .manga-panel-dark {
+    padding: 0.85rem 0.9rem;
+    border-width: 2px;
+    box-shadow:
+      3px 3px 0 rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(0, 0, 0, 0.3) inset;
+  }
+  .speech {
+    border-width: 2px;
+    border-radius: 14px;
+    padding: 0.65rem 0.8rem;
+  }
+  .impact {
+    letter-spacing: 0.03em;
+    text-shadow:
+      1.5px 1.5px 0 #000,
+      -1.5px -1.5px 0 #000,
+      1.5px -1.5px 0 #000,
+      -1.5px 1.5px 0 #000,
+      3px 3px 0 rgba(122, 162, 247, 0.3);
+  }
+  .chapter-title {
+    letter-spacing: 0.04em;
+  }
+  .speed-lines::before,
+  .speed-lines-burst::before {
+    opacity: 0.38;
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .manga-panel,
+  .manga-panel-dark,
+  a,
+  .impact.animate-pop:hover,
+  .impact.animate-pop:focus-visible,
+  .screentone.animate-drift,
+  .manga-panel-dark.animate-glint {
+    transition: none !important;
+    animation: none !important;
+  }
+  .card:hover,
+  .manga-panel:hover,
+  .manga-panel-dark:hover {
+    transform: none;
+  }
+}
