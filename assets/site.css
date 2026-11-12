@@ -1,0 +1,84 @@
+/* 48-hour plan refresh — small, readable, and intentionally low-key. */
+:root {
+  --bg: #0d1015;
+  --surface: #171b22;
+  --surface2: #202530;
+  --text: #eef0f5;
+  --muted: #a5abb7;
+  --accent: #b3c4ff;
+  --accent2: #b9d8c2;
+  --warn: #edaa9b;
+  --border: #2e343f;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); line-height: 1.62; font-size: 15.5px; }
+::selection { background: #506697; color: #fff; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:hover { color: #e0e8ff; }
+.wrap { max-width: 1180px; padding-left: clamp(1rem, 3vw, 2rem); padding-right: clamp(1rem, 3vw, 2rem); }
+
+/* Hero illustration */
+header.site-hero { position: relative; isolation: isolate; overflow: hidden; padding: 0; background: #111419; border-bottom: 1px solid var(--border); }
+.site-hero .hero-image { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 60% 45%; filter: saturate(.82) brightness(.80); }
+.site-hero::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(12,14,18,.98) 0%, rgba(12,14,18,.90) 35%, rgba(12,14,18,.53) 58%, rgba(12,14,18,.06) 100%), linear-gradient(0deg, rgba(12,14,18,.35), transparent 34%); pointer-events: none; }
+.site-hero .hero-inner { display: flex; flex-direction: column; justify-content: center; min-height: 365px; padding-top: 4rem; padding-bottom: 4rem; }
+.site-hero .hero-content { max-width: 620px; }
+.site-hero .eyebrow { margin: 0 0 1.1rem; color: #d0d5df; letter-spacing: .11em; text-transform: uppercase; font-size: .74rem; font-weight: 650; }
+.site-hero h1 { margin: 0; font-size: clamp(2.75rem, 6vw, 4.8rem); font-weight: 770; letter-spacing: -.06em; line-height: 1.04; color: #fff; max-width: 620px; text-wrap: balance; }
+.site-hero .hero-description { max-width: 500px; margin: 1.15rem 0 1.35rem; font-size: 1.06rem; color: #d0d5dc; line-height: 1.6; }
+.site-hero .hero-tags { display: flex; gap: .55rem; flex-wrap: wrap; }
+.site-hero .hero-tags span { padding: .32rem .7rem; border: 1px solid rgba(237,240,249,.18); background: rgba(24,28,35,.64); backdrop-filter: blur(6px); color: #d5d9e2; border-radius: 6px; font-size: .79rem; }
+
+/* Navigation */
+nav { background: rgba(14,16,21,.96); border-color: var(--border); backdrop-filter: blur(16px); }
+nav .wrap { display: flex; flex-wrap: nowrap; align-items: center; white-space: nowrap; overflow-x: auto; gap: .15rem; padding-top: .55rem; padding-bottom: .55rem; scrollbar-width: thin; }
+nav a { color: #b9c0ce; font-size: .89rem; font-weight: 560; text-decoration: none; border-radius: 6px; padding: .38rem .75rem; transition: background .15s, color .15s; }
+nav a:hover, nav a:focus-visible { background: #242a36; color: white; outline: none; }
+main.wrap { padding-top: 1.5rem; padding-bottom: 4rem; }
+[id] { scroll-margin-top: 88px; }
+h2 { font-size: clamp(1.45rem, 2.2vw, 1.8rem); font-weight: 700; color: #f0f2f8; letter-spacing: -.025em; margin-top: 3.1rem; padding-bottom: .65rem; border-color: var(--border); }
+h3 { color: #dfe4ef; font-weight: 650; font-size: 1.1rem; letter-spacing: -.012em; }
+h4 { color: #dce2ed; }
+p, li { max-width: 90ch; }
+.small { color: var(--muted); }
+
+/* Overview */
+.overview-panel { background: var(--surface); border: 1px solid var(--border); padding: clamp(1.15rem, 3vw, 1.65rem); border-radius: 12px; }
+.overview-panel .lead { margin: 0 0 1.5rem; max-width: 75ch; font-size: 1.05rem; line-height: 1.75; color: #ebedf4; }
+.overview-list { display: grid; gap: .8rem; grid-template-columns: repeat(3, minmax(0,1fr)); }
+.overview-list div { background: #11161e; border: 1px solid #2a313d; border-radius: 8px; padding: .95rem 1rem; }
+.overview-list strong { display: block; font-size: .8rem; color: #f2f3f7; margin-bottom: .2rem; }
+.overview-list p { margin: 0; color: #b8becb; font-size: .9rem; }
+.overview-tip { margin: 1rem 0 0; color: #abb3bf; font-size: .85rem; }
+
+/* Cards and data tables */
+.card { background: var(--surface); border-color: var(--border); border-radius: 10px; padding: 1.15rem 1.3rem; box-shadow: none; }
+.pill { background: #192031; border-left: 3px solid #8ea7e8; border-radius: 5px; color: #d9e0ef; }
+.tag { background: var(--surface2); border-color: var(--border); color: #c8ced9; border-radius: 6px; padding: .2rem .55rem; }
+.table-scroll { width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 9px; margin: .85rem 0 1.2rem; scrollbar-color: #3a4253 transparent; }
+.table-scroll table { width: 100%; min-width: 690px; border-collapse: collapse; margin: 0; font-size: .88rem; }
+.table-scroll th, .table-scroll td { border: 0; border-bottom: 1px solid var(--border); padding: .72rem .85rem; vertical-align: top; }
+.table-scroll th + th, .table-scroll td + td { border-left: 1px solid rgba(255,255,255,.035); }
+.table-scroll th { background: #232833; color: #eef1f8; font-weight: 650; position: sticky; top: 0; }
+.table-scroll tbody tr:last-child td, .table-scroll > table > tr:last-child td { border-bottom: 0; }
+.table-scroll tr:nth-child(even) td { background: #141922; }
+.table-scroll tr:nth-child(odd) td { background: #191e27; }
+.table-scroll tr:hover td { background: #222a36; }
+.table-scroll td:first-child { white-space: nowrap; color: #c9d3e3; font-variant-numeric: tabular-nums; }
+.table-scroll tr td strong { color: #f4f5fb; font-weight: 630; }
+.ok { color: var(--accent2); }
+.warn { color: var(--warn); }
+code { color: #d8deec; background: #272e3a; }
+footer { border-color: var(--border); color: #8993a4; }
+
+@media (max-width: 760px) {
+  .site-hero .hero-inner { min-height: 325px; padding-top: 3.2rem; padding-bottom: 3.3rem; }
+  .site-hero .hero-image { object-position: 69% 50%; opacity: .75; }
+  .site-hero::after { background: linear-gradient(90deg,rgba(12,14,18,.96) 0%,rgba(12,14,18,.79) 61%,rgba(12,14,18,.40) 100%), linear-gradient(0deg,rgba(12,14,18,.34),transparent 50%); }
+  .overview-list { grid-template-columns: 1fr; }
+  nav .wrap { gap: 0; }
+  nav a { padding: .36rem .65rem; }
+  .table-scroll table { min-width: 650px; }
+  .card { padding: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) { html {scroll-behavior:auto;} }
